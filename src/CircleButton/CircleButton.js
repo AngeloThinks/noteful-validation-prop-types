@@ -22,5 +22,5 @@ NavCircleButton.propTypes ={
   className: PropTypes.string,
   tag: PropTypes.oneOfType([PropTypes.string,PropTypes.func]),
   to: PropTypes.string,
-  type: PropTypes.string,
+  type: PropTypes.string ,
 }
