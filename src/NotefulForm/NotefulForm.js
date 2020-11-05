@@ -1,6 +1,7 @@
 import React from 'react'
 import './NotefulForm.css'
-import NotefulContext from '../notefulContext'
+import ApiContext from '../ApiContext'
+
 
 
 export default class NotefulForm extends React.Component {
@@ -13,7 +14,7 @@ export default class NotefulForm extends React.Component {
   render(){
   const { className, ...otherProps } = this.props
   return (
-    <NotefulContext.Consumer>
+    <ApiContext.Consumer>
     {({folders})=>(
 
     <form
@@ -43,7 +44,7 @@ export default class NotefulForm extends React.Component {
     </form>
     )}
     
-    </NotefulContext.Consumer>
+    </ApiContext.Consumer>
   )
  }
 }

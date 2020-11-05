@@ -5,7 +5,7 @@ import ApiContext from "../ApiContext";
 class AddNote extends Component {
   state = {
     note: {
-      value: "",
+      title: "",
       touched: false,
     },
     folderId: {
@@ -19,8 +19,8 @@ class AddNote extends Component {
   static contextType = ApiContext;
 
   updateNote(note) {
-    this.setState({ note: { value: note, touched: true } });
-    console.log(this.state.note.value);
+    this.setState({ note: { title: note, touched: true } });
+    console.log(this.state.note.title);
   }
 
   updateContent(content) {
@@ -32,12 +32,37 @@ class AddNote extends Component {
   }
 
   validateName() {
-    const note = this.state.note.value.trim();
+    const note = this.state.note.title.trim();
     if (note.length === 0) {
       return "Text is required";
     }
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    const { note, folderId, content } = this.state;
+    console.log(note.title);
+    const noteObj = {
+      title: note.title,
+      content: content.value,
+      folder_id: parseInt(folderId.value),
+      
+    };
+    console.log(noteObj)
+    const url = `http://localhost:8000/notes`;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(noteObj),
+    })
+      .then((response) => response.json())
+      .then((note) => {
+        this.context.addNote(note);
+        this.props.history.push(`/`);
+      });
+  }
   render() {
     const { folders } = this.context;
     return (
@@ -75,30 +100,6 @@ class AddNote extends Component {
         </button>
       </form>
     );
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const { note, folderId, content } = this.state;
-    console.log(note.value);
-    const noteObj = {
-      name: note.value,
-      folderId: folderId.value,
-      content: content.value,
-    };
-    const url = `http://localhost:9090/notes`;
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(noteObj),
-    })
-      .then((response) => response.json())
-      .then((note) => {
-        this.context.addNote(note);
-        this.props.history.push(`/`);
-      });
   }
 }
 

@@ -53,7 +53,7 @@ validateName() {
         const {folder} = this.state
         console.log(folder.value)
         const folderObj = {'name':folder.value}
-        const url = `http://localhost:9090/folders`
+        const url = `http://localhost:8000/folders`
         fetch(url,{
             method: 'POST',
             headers:{

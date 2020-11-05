@@ -31,6 +31,7 @@ class App extends Component {
         return Promise.all([notesRes.json(), foldersRes.json()]);
       })
       .then(([notes, folders]) => {
+        console.log(notes, folders)
         this.setState({ notes, folders });
       })
       .catch((error) => {
@@ -45,19 +46,22 @@ class App extends Component {
   };
 
   handleAddFolder = (folder) => {
-    this.state.folders.push(folder);
+    // this.state.folders.push(folder);
     this.setState({
-      folders: this.state.folders,
+      folders: [...this.state.folders, folder]
     });
   };
 
   handleAddNote = (note) => {
     console.log(note);
-    this.state.notes.push(note);
+    // this.state.notes.push(note); big NO NO mutating React doesn't like this
     this.setState({
-      notes: this.state.notes,
+      notes: [...this.state.notes, note]
     });
+    console.log(this.state.notes)
   };
+
+
 
   renderNavRoutes() {
     return (
@@ -94,6 +98,7 @@ class App extends Component {
       addNote: this.handleAddNote,
 
     };
+    console.log(value)
     return (
       <ApiContext.Provider value={value}>
         <div className="App">
