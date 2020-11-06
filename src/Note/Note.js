@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import ApiContext from '../ApiContext'
 import './Note.css'
 import PropTypes from 'prop-types'
+import Config from '../config'
 
 export default class Note extends React.Component {
   static defaultProps ={
@@ -17,7 +18,7 @@ export default class Note extends React.Component {
     const noteId = this.props.id
 
     
-    fetch(`http://localhost:8000/notes/${noteId}`, {
+    fetch(`${Config.API_ENDPOINT}/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'

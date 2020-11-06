@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ValidationError from './ValidationError'
 import ApiContext from '../ApiContext'
+import Config from '../config'
 
 class AddFolder extends Component {
     state={
@@ -53,7 +54,7 @@ validateName() {
         const {folder} = this.state
         console.log(folder.value)
         const folderObj = {'name':folder.value}
-        const url = `http://localhost:8000/folders`
+        const url = `${Config.API_ENDPOINT}/folders`
         fetch(url,{
             method: 'POST',
             headers:{

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ValidationError from "./ValidationError";
 import ApiContext from "../ApiContext";
+import Config from '../config'
 
 class AddNote extends Component {
   state = {
@@ -49,7 +50,7 @@ class AddNote extends Component {
       
     };
     console.log(noteObj)
-    const url = `http://localhost:8000/notes`;
+    const url = `${Config.API_ENDPOINT}/notes`;
     fetch(url, {
       method: "POST",
       headers: {
